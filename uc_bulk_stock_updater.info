@@ -1,0 +1,7 @@
+name = Bulk stock updater
+description = Allows you to bulk-edit product stock levels.
+core = 6.x
+dependencies[] = uc_stock
+version = 6.x-1.0
+package = Ubercart - extra
+
