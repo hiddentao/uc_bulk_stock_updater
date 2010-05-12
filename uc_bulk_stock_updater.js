@@ -27,7 +27,28 @@ $(document).ready(function(){
 			submitStockValue(this);
 		})
 	});
-	
+
+	// filter
+	$("#uc_bulk_stock_updater_filter").keyup(function(){
+		
+		$(this).after("<div class=\"uc_bulk_stock_updater_ajax_progress\"></div>");
+		
+		var f = $(this).val().toLowerCase();
+		if ('' == f)
+			$("table.uc-stock-table tr").show();
+		else {
+			$("table.uc-stock-table tr").each(function(){
+				// show 
+				if (0 < $(this).find("span[id*=" + f + "]").size()) {
+					$(this).show();
+				} else {
+					$(this).hide();
+				}
+			});
+		}
+		
+		$(this).next("div.uc_bulk_stock_updater_ajax_progress").remove();		
+	});
 });
 
 
