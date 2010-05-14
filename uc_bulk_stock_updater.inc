@@ -76,7 +76,7 @@ function uc_bulk_stock_updater_stock_update() {
   
   // add filter field
   if (!is_null($_GET['nopage'])) {
-  	$output .= '<p><label for="uc_bulk_stock_updater_filter">Filter:</label><input id="uc_bulk_stock_updater_filter" size="15" /></p>';
+  	$output .= '<p><label for="uc_bulk_stock_updater_filter">'.t('Filter').':</label><input id="uc_bulk_stock_updater_filter" size="15" /></p>';
   }
   
   $output .= theme('table', $header, $rows, array('width' => '100%', 'class' => 'uc-stock-table'))
