@@ -39,8 +39,8 @@ function uc_bulk_stock_updater_menu() {
   $items = array();
 
   $items[_UC_BULK_STOCK_UPDATER_MENU_OVERVIEW] = array(
-    'title' => t('Stock'),
-    'description' => t('Administer stock levels.'),
+    'title' => 'Stock',
+    'description' => 'Administer stock levels.',
     'access arguments' => array('administer products'),
     'page callback' => 'uc_bulk_stock_updater_stock_overview',
     'type' => MENU_NORMAL_ITEM,
@@ -48,8 +48,8 @@ function uc_bulk_stock_updater_menu() {
     'file' => 'uc_bulk_stock_updater.inc',
   );
   $items[_UC_BULK_STOCK_UPDATER_MENU_UPDATE] = array(
-    'title' => t('Bulk update'),
-    'description' => t('Bulk-update stock levels.'),
+    'title' => 'Bulk update',
+    'description' => 'Bulk-update stock levels.',
     'access arguments' => array('administer products'),
     'page callback' => 'uc_bulk_stock_updater_stock_update',
   	'type' => MENU_NORMAL_ITEM,
