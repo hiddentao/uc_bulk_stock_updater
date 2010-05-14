@@ -54,6 +54,10 @@ function uc_bulk_stock_updater_stock_update() {
   $result = pager_query($sql . tablesort_sql($header), $page_size, 0, NULL);
   
   while ($stock = db_fetch_object($result)) {
+  	
+  	$stock->sku = check_plain($stock->sku);
+  	$stock->title = check_plain($stock->title);
+  	
   	// for filtering purposes
   	$filter_val = strtolower($stock->sku . $stock->title . $stock->stock . $stock->threshold);
     // Add the data to a table row for display.
@@ -64,7 +68,7 @@ function uc_bulk_stock_updater_stock_update() {
         array('data' => "<input size=\"3\" maxlength=\"9\" class=\"uc_bulk_stock_updater-value\" name=\"$stock->sku\" value=\"$stock->stock\" />"),
         array('data' => $stock->threshold),
       ),
-      'class' => ($stock->threshold >= $stock->stock) ? 'uc-stock-below-threshold' : 'uc-stock-above-threshold',
+      'class' => (intval($stock->threshold) >= intval($stock->stock)) ? 'uc-stock-below-threshold' : 'uc-stock-above-threshold',
     );
   }
 
