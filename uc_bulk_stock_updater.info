@@ -1,3 +1,4 @@
+; $Id$
 name = Bulk stock updater
 description = Allows you to bulk-edit product stock levels.
 core = 6.x

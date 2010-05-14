@@ -1,4 +1,5 @@
 <?php
+// $Id$
 /*
 Bulk stock updater module for Drupal 
 Copyright (C) 2010 Ramesh Nair (www.hiddentao.com)
