@@ -35,6 +35,7 @@ function uc_bulk_stock_updater_stock_overview() {
 function uc_bulk_stock_updater_stock_update() {
   drupal_add_css(drupal_get_path('module', 'uc_stock') . '/uc_stock.css');
   drupal_add_css(drupal_get_path('module', 'uc_bulk_stock_updater') . '/uc_bulk_stock_updater.css');
+  drupal_add_js('var g_uc_bulk_stock_updater_ajax_url = "'.url(_UC_BULK_STOCK_UPDATER_MENU_UPDATE_AJAX).'";', 'inline');
   drupal_add_js(drupal_get_path('module', 'uc_bulk_stock_updater') . '/uc_bulk_stock_updater.js');
   
   $page_size = (!is_null($_GET['nopage'])) ? UC_REPORTS_MAX_RECORDS : variable_get('uc_reports_table_size', 30);

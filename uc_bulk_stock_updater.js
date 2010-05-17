@@ -66,7 +66,7 @@ function submitStockValue(stockInputElem)
 	
 	// call
 	$.ajax({
-		url : "/admin/store/stock/update/ajax",
+		url : g_uc_bulk_stock_updater_ajax_url,
 		type: 'POST',
 		timeout : 3000,
 		data : { sku: _sku, stock: _stock },
