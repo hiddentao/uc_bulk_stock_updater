@@ -32,6 +32,7 @@ define('_UC_BULK_STOCK_UPDATER_MENU_OVERVIEW','admin/store/stock');
 define('_UC_BULK_STOCK_UPDATER_MENU_UPDATE','admin/store/stock/update');
 define('_UC_BULK_STOCK_UPDATER_MENU_UPDATE_AJAX','admin/store/stock/update/ajax');
 
+
 /**
  * Implementation of hook_menu().
  */
@@ -41,7 +42,7 @@ function uc_bulk_stock_updater_menu() {
   $items[_UC_BULK_STOCK_UPDATER_MENU_OVERVIEW] = array(
     'title' => 'Stock',
     'description' => 'Administer stock levels.',
-    'access arguments' => array('administer products'),
+    'access arguments' => uc_bulk_stock_updater_perm(),
     'page callback' => 'uc_bulk_stock_updater_stock_overview',
     'type' => MENU_NORMAL_ITEM,
     'weight' => -2,
@@ -50,14 +51,14 @@ function uc_bulk_stock_updater_menu() {
   $items[_UC_BULK_STOCK_UPDATER_MENU_UPDATE] = array(
     'title' => 'Bulk update',
     'description' => 'Bulk-update stock levels.',
-    'access arguments' => array('administer products'),
+    'access arguments' => uc_bulk_stock_updater_perm(),
     'page callback' => 'uc_bulk_stock_updater_stock_update',
   	'type' => MENU_NORMAL_ITEM,
     'weight' => -10,
     'file' => 'uc_bulk_stock_updater.inc',
   );
   $items[_UC_BULK_STOCK_UPDATER_MENU_UPDATE_AJAX] = array(
-    'access arguments' => array('administer products'),
+    'access arguments' => uc_bulk_stock_updater_perm(),
     'page callback' => 'uc_bulk_stock_updater_stock_update_ajax',
   	'type' => MENU_CALLBACK,
     'file' => 'uc_bulk_stock_updater.inc',
@@ -66,6 +67,9 @@ function uc_bulk_stock_updater_menu() {
   return $items;
 }
 
+function uc_bulk_stock_updater_perm() {
+	return array('bulk update stock');
+}
 
 /**
  * Implementation of hook_help().
