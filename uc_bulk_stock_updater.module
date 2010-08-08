@@ -1,22 +1,5 @@
 <?php
 // $Id$
-/*
-Bulk stock updater module for Drupal 
-Copyright (C) 2010 Ramesh Nair (www.hiddentao.com)
-
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 2 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program. If not, see <http://www.gnu.org/licenses/>.
-*/
 
 /**
  * @file
@@ -25,12 +8,15 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
  * Provides the facility to bulk-edit product stock levels.
  */
 
-/******************************************************************************
- * Drupal Hooks                                                               *
- ******************************************************************************/
-define('_UC_BULK_STOCK_UPDATER_MENU_OVERVIEW','admin/store/stock');
-define('_UC_BULK_STOCK_UPDATER_MENU_UPDATE','admin/store/stock/update');
-define('_UC_BULK_STOCK_UPDATER_MENU_UPDATE_AJAX','admin/store/stock/update/ajax');
+
+// url paths
+define('_UC_BULK_STOCK_UPDATER_MENU_OVERVIEW', 'admin/store/stock');
+define('_UC_BULK_STOCK_UPDATER_MENU_UPDATE', 'admin/store/stock/update');
+define('_UC_BULK_STOCK_UPDATER_MENU_UPDATE_AJAX', 'admin/store/stock/update/ajax');
+
+// permissions
+define('_UC_BULK_STOCK_UPDATER_PERM_BULK_UPDATE_STOCK', 'bulk update stock');
+
 
 
 /**
@@ -42,7 +28,7 @@ function uc_bulk_stock_updater_menu() {
   $items[_UC_BULK_STOCK_UPDATER_MENU_OVERVIEW] = array(
     'title' => 'Stock',
     'description' => 'Administer stock levels.',
-    'access arguments' => uc_bulk_stock_updater_perm(),
+    'access arguments' => _UC_BULK_STOCK_UPDATER_PERM_BULK_UPDATE_STOCK,
     'page callback' => 'uc_bulk_stock_updater_stock_overview',
     'type' => MENU_NORMAL_ITEM,
     'weight' => -2,
@@ -51,24 +37,27 @@ function uc_bulk_stock_updater_menu() {
   $items[_UC_BULK_STOCK_UPDATER_MENU_UPDATE] = array(
     'title' => 'Bulk update',
     'description' => 'Bulk-update stock levels.',
-    'access arguments' => uc_bulk_stock_updater_perm(),
+    'access arguments' => _UC_BULK_STOCK_UPDATER_PERM_BULK_UPDATE_STOCK,
     'page callback' => 'uc_bulk_stock_updater_stock_update',
-  	'type' => MENU_NORMAL_ITEM,
+    'type' => MENU_NORMAL_ITEM,
     'weight' => -10,
     'file' => 'uc_bulk_stock_updater.inc',
   );
   $items[_UC_BULK_STOCK_UPDATER_MENU_UPDATE_AJAX] = array(
-    'access arguments' => uc_bulk_stock_updater_perm(),
+    'access arguments' => _UC_BULK_STOCK_UPDATER_PERM_BULK_UPDATE_STOCK,
     'page callback' => 'uc_bulk_stock_updater_stock_update_ajax',
-  	'type' => MENU_CALLBACK,
+    'type' => MENU_CALLBACK,
     'file' => 'uc_bulk_stock_updater.inc',
   );
   
   return $items;
 }
 
+/**
+ * Implementation of hook_perm()
+ */
 function uc_bulk_stock_updater_perm() {
-	return array('bulk update stock');
+	return array(_UC_BULK_STOCK_UPDATER_PERM_BULK_UPDATE_STOCK);
 }
 
 /**
