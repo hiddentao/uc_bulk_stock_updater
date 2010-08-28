@@ -10,15 +10,6 @@
 
 
 /**
- * Main admin page.
- * @return HTML.
- */
-function uc_bulk_stock_updater_stock_overview() {
-	drupal_goto(_UC_BULK_STOCK_UPDATER_MENU_UPDATE);
-	return;
-}
-
-/**
  * Stock levels editing page.
  * @return HTML.
  */

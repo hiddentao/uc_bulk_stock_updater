@@ -29,7 +29,7 @@ function uc_bulk_stock_updater_menu() {
     'title' => 'Stock',
     'description' => 'Administer stock levels.',
     'access arguments' => _UC_BULK_STOCK_UPDATER_PERM_BULK_UPDATE_STOCK,
-    'page callback' => 'uc_bulk_stock_updater_stock_overview',
+    'page callback' => 'uc_bulk_stock_updater_stock_update',
     'type' => MENU_NORMAL_ITEM,
     'weight' => -2,
     'file' => 'uc_bulk_stock_updater.inc',
