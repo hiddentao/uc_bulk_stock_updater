@@ -1,13 +1,13 @@
 ﻿== Bulk stock updater ===
 
-This is an extension module for Ubercart 2.x running on Drupal 6.x which makes it easy to edit product stock levels.
+This is an extension module for Ubercart 2.x running on Drupal 6.x which makes it easy to edit product stock levels. Its interface is modelled on the 'Stock report' page displayed by the uc_stock module.
 
-Its interface is modelled on the 'Stock report' page displayed by the uc_stock module. It adds a menu item:
+=== Usage ===
 
-Store administration > Stock > Bulk update
+Once the module is enabled ensure you assign the 'bulk update stock' permission to the appropriate user roles.
 
-To view the page the user must have the 'administer products' permission (same as for editing Ubercart products).
+Goto 'Store administration > Stock > Bulk update' and you will see a paged list of your products ordered by SKU. At the bottom is a link to view all the products on one page if you wish.
 
-The page lists all products along with their stock levels and minimum stock thresholds. The stock levels are shown as editable text fields. When the user changes the value within a text field and then takes the focus away from it an AJAX call is made to the server (and handled by uc_bulk_stock_updater) to update the stock level for that particular product with what the user entered.
+You will notice that the stock value for each product is displayed as an input field. Once you change the value in an input field it will be automatically submitted to the server via AJAX (you will see a progress indicator while this happens). If any errors occur the field value will be reset to what it was originally and an error message will be shown.
 
-A progress indicator is shown whilst the AJAX call is taking place and the user is given success/error feedback once complete. If the call fails or the update on the server-side fails then the stock level for the product is set back to its original value. The user can choose to view all products on a single page or opt for a paged view of products (the default view) in case their product catalogue is very large. 
+You can refer to the CSS file in the module's folder to find out which styles need to be overridden in order to customize the look and feel.
