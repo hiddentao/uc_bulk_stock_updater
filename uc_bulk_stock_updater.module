@@ -28,7 +28,7 @@ function uc_bulk_stock_updater_menu() {
   $items[_UC_BULK_STOCK_UPDATER_MENU_OVERVIEW] = array(
     'title' => 'Stock',
     'description' => 'Administer stock levels.',
-    'access arguments' => _UC_BULK_STOCK_UPDATER_PERM_BULK_UPDATE_STOCK,
+    'access arguments' => array(_UC_BULK_STOCK_UPDATER_PERM_BULK_UPDATE_STOCK),
     'page callback' => 'uc_bulk_stock_updater_stock_update',
     'type' => MENU_NORMAL_ITEM,
     'weight' => -2,
@@ -37,14 +37,14 @@ function uc_bulk_stock_updater_menu() {
   $items[_UC_BULK_STOCK_UPDATER_MENU_UPDATE] = array(
     'title' => 'Bulk update',
     'description' => 'Bulk-update stock levels.',
-    'access arguments' => _UC_BULK_STOCK_UPDATER_PERM_BULK_UPDATE_STOCK,
+    'access arguments' => array(_UC_BULK_STOCK_UPDATER_PERM_BULK_UPDATE_STOCK),
     'page callback' => 'uc_bulk_stock_updater_stock_update',
     'type' => MENU_NORMAL_ITEM,
     'weight' => -10,
     'file' => 'uc_bulk_stock_updater.inc',
   );
   $items[_UC_BULK_STOCK_UPDATER_MENU_UPDATE_AJAX] = array(
-    'access arguments' => _UC_BULK_STOCK_UPDATER_PERM_BULK_UPDATE_STOCK,
+    'access arguments' => array(_UC_BULK_STOCK_UPDATER_PERM_BULK_UPDATE_STOCK),
     'page callback' => 'uc_bulk_stock_updater_stock_update_ajax',
     'type' => MENU_CALLBACK,
     'file' => 'uc_bulk_stock_updater.inc',
