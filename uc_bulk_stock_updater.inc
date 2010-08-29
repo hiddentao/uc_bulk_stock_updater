@@ -19,7 +19,8 @@ function uc_bulk_stock_updater_stock_update() {
   drupal_add_js('var g_uc_bulk_stock_updater_ajax_url = "' . url(_UC_BULK_STOCK_UPDATER_MENU_UPDATE_AJAX) . '";', 'inline');
   drupal_add_js(drupal_get_path('module', 'uc_bulk_stock_updater') . '/uc_bulk_stock_updater.js');
   
-  $page_size = (!is_null($_GET['nopage'])) ? UC_REPORTS_MAX_RECORDS : variable_get('uc_reports_table_size', 30);
+  $viewing_all_records = !is_null($_GET['nopage']); 
+  $page_size = ($viewing_all_records ? UC_REPORTS_MAX_RECORDS : variable_get('uc_reports_table_size', 30));
   $rows = array();
 
   $header = array(
@@ -35,24 +36,26 @@ function uc_bulk_stock_updater_stock_update() {
 
   $result = pager_query($sql . tablesort_sql($header), $page_size, 0, NULL);
   
+  // NOTE: we don't push this stuff into the theming method because we need to set
+  // certain attributes in order to ensure the AJAX update works properly.
+  $products = array();
   while ($stock = db_fetch_object($result)) {
-  	
-  	$stock->sku = check_plain($stock->sku);
-  	$stock->title = check_plain($stock->title);
-  	
-  	// for filtering purposes
-  	$filter_val = implode('__',array_map('drupal_strtolower',array($stock->sku, $stock->title, $stock->stock, $stock->threshold)));
-  	
-  	// construct input using FAPI
-  	$stock_textfield = theme_textfield(array(
-  	  '#name' => $stock->sku,
-  	  '#value' => $stock->stock,
-  	  '#size' => 3,
-  	  '#maxlength' => 9,
-  	  '#attributes' => array('class' => 'uc_bulk_stock_updater_value'),
-  	  '#parents' => array(),
-  	));
-  	
+    $stock->sku = check_plain($stock->sku);
+    $stock->title = check_plain($stock->title);
+    
+    // for filtering purposes
+    $filter_val = implode('__',array_map('drupal_strtolower',array($stock->sku, $stock->title, $stock->stock, $stock->threshold)));
+    
+    // construct input using FAPI
+    $stock_textfield = theme_textfield(array(
+      '#name' => $stock->sku,
+      '#value' => $stock->stock,
+      '#size' => 3,
+      '#maxlength' => 9,
+      '#attributes' => array('class' => 'uc_bulk_stock_updater_value'),
+      '#parents' => array(),
+    ));
+    
     // Add the data to a table row for display.
     $rows[] = array(
       'data' => array(
@@ -64,17 +67,31 @@ function uc_bulk_stock_updater_stock_update() {
       'class' => (intval($stock->threshold) >= intval($stock->stock)) ? 'uc-stock-below-threshold' : 'uc-stock-above-threshold',
     );
   }
+  
+  return theme('uc_bulk_stock_updater_table', $page_size, $viewing_all_records, $header, $rows);
+}
 
+
+/**
+ * Theming for the table.
+ * 
+ * @param $page_size the number of items we're showing on this page.
+ * @param $viewing_all_records TRUE if we're viewing all available records; FALSE if we're paging.
+ * @param $table_header the table header titles.
+ * @param $rows the rows of the table.
+ */
+function theme_uc_bulk_stock_updater_table($page_size, $viewing_all_records, array $table_header, array $rows) {
+  
   $output = '';
   
   $link = '<div class="uc-reports-links">' 
-               . ((!is_null($_GET['nopage'])) ? l(t('Show paged records'), _UC_BULK_STOCK_UPDATER_MENU_UPDATE) : l(t('Show all records'), _UC_BULK_STOCK_UPDATER_MENU_UPDATE, $options = array('query' => 'nopage=1'))) 
+               . ($viewing_all_records ? l(t('Show paged records'), _UC_BULK_STOCK_UPDATER_MENU_UPDATE) : l(t('Show all records'), _UC_BULK_STOCK_UPDATER_MENU_UPDATE, $options = array('query' => 'nopage=1'))) 
                . '</div>';
   
   $output .= $link;
                
   // add filter field
-  if (!is_null($_GET['nopage'])) {
+  if ($viewing_all_records) {
     $output .= theme_textfield(array(
       '#title' => 'Filter',
       '#id' => 'uc_bulk_stock_updater_filter',
@@ -83,15 +100,13 @@ function uc_bulk_stock_updater_stock_update() {
     ));
   }
 
-  $output .= theme('table', $header, $rows, array('width' => '100%', 'class' => 'uc-stock-table'))
+  $output .= theme('table', $table_header, $rows, array('width' => '100%', 'class' => 'uc-stock-table'))
           . theme_pager(NULL, $page_size);
           
   $output .= $link;
   
   return $output;
 }
-
-
 
 
 /** 

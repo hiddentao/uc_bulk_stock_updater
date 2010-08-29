@@ -80,3 +80,16 @@ function uc_bulk_stock_updater_help($path, $arg) {
   return $output;
 }
 
+
+/**
+ * Implementation of hook_theme().
+ */
+function uc_bulk_stock_updater_theme() {
+  return array(
+    'uc_bulk_stock_updater_table' => array(
+      'arguments' => array('page_size' => NULL, 'viewing_all_records' => NULL, 'table_header' => NULL, 'rows' => NULL),
+      'file' => 'uc_bulk_stock_updater.inc',
+    ),  
+  );
+}
+
