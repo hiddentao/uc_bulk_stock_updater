@@ -1,13 +1,12 @@
 // $Id$
 
-
-$(document).ready(function(){
+Drupal.behaviors.uc_bulk_stock_updater = function (context) {
 	
 	// keep track of which stock levels get edited
 	$("input.uc_bulk_stock_updater_value").each(function(){
 		$(this).data("original", $(this).val());
 		$(this).change(function(){
-			submitStockValue(this);
+			uc_bulk_stock_updater_submitStockValue(this);
 		})
 	});
 
@@ -32,10 +31,10 @@ $(document).ready(function(){
 		
 		$(this).next("div.uc_bulk_stock_updater_ajax_progress").remove();		
 	});
-});
+};
 
 
-function submitStockValue(stockInputElem)
+function uc_bulk_stock_updater_submitStockValue(stockInputElem)
 {
 	var _sku = $(stockInputElem).attr("name");
 	var _stock = $(stockInputElem).val();
@@ -49,19 +48,19 @@ function submitStockValue(stockInputElem)
 	
 	// call
 	$.ajax({
-		url : g_uc_bulk_stock_updater_ajax_url,
+		url : Drupal.settings.uc_bulk_stock_updater.ajax_url,
 		type: 'POST',
 		timeout : 3000,
 		data : { sku: _sku, stock: _stock },
 		dataType : "json",
 	    error : function(_XMLHttpRequest, _textStatus, _errorThrown)
 	    {
-			submitStockValueErr(stockInputElem, _textStatus);
+			uc_bulk_stock_updater_submitStockValueErr(stockInputElem, _textStatus);
 	    },			
 		success : function(_data, _textStatus, _XMLHttpRequest)
 		{
 	    	if (undefined != _data.error)
-				submitStockValueErr(stockInputElem, _data.error);
+	    		uc_bulk_stock_updater_submitStockValueErr(stockInputElem, _data.error);
 	    	else
 	    		$(stockInputElem).data("original", _stock);
 	    },
@@ -71,7 +70,7 @@ function submitStockValue(stockInputElem)
 		}	    
 	});	
 }
-function submitStockValueErr(stockInputElem, _errorMsg)
+function uc_bulk_stock_updater_submitStockValueErr(stockInputElem, _errorMsg)
 {
 	$(stockInputElem)
 		.after("<div class=\"uc_bulk_stock_updater_ajax_error\">" + _errorMsg + "</div>")
