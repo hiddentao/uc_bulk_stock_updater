@@ -1,4 +1,5 @@
-// $Id$
+// $Id: uc_bulk_stock_updater.js,v 1.1 2010/08/28 10:45:52 hiddentao Exp $
+
 
 Drupal.behaviors.uc_bulk_stock_updater = function (context) {
 	

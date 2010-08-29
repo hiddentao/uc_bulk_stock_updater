@@ -1,5 +1,5 @@
 <?php
-// $Id$
+// $Id: uc_bulk_stock_updater.inc,v 1.1 2010/08/28 10:45:52 hiddentao Exp $
 
 /**
  * @file

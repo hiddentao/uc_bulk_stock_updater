@@ -1,4 +1,4 @@
-; $Id$
+; $Id: uc_bulk_stock_updater.info,v 1.1 2010/08/28 10:45:52 hiddentao Exp $
 name = Bulk stock updater
 description = Allows you to bulk-edit product stock levels.
 core = 6.x
