@@ -18,9 +18,9 @@ Drupal.behaviors.uc_bulk_stock_updater = function (context) {
 		
 		var f = $(this).val().toLowerCase();
 		if ('' == f)
-			$("table.uc-stock-table tr").show();
+			$("table.uc-stock-table tbody tr").show();
 		else {
-			$("table.uc-stock-table tr").each(function(){
+			$("table.uc-stock-table tbody tr").each(function(){
 				// show 
 				if (0 < $(this).find("span[id*=" + f + "]").size()) {
 					$(this).show();

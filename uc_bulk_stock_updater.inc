@@ -76,12 +76,14 @@ function uc_bulk_stock_updater_stock_update() {
     ++$item_index;
     
     // sanitize for output
+    $filter_val = array();
     foreach ($db_obj_field_names as $n) {
       $stock->$n = check_plain($stock->$n);
+      $filter_val[] = $stock->$n;
     }
     
     // for filtering purposes
-    $filter_val = implode('__',array_map('drupal_strtolower', $db_obj_field_names));
+    $filter_val = implode('__',array_map('drupal_strtolower', $filter_val));
     
     // Construct the data row
     $data_row = array(
