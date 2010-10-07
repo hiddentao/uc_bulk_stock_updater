@@ -1,7 +1,7 @@
 /* $Id: uc_bulk_stock_updater.css,v 1.1 2010/08/28 10:45:52 hiddentao Exp $ */
 
 
-.uc_bulk_stock_updater_ajax_progress
+.uc_bulk_stock_updater_progress
 {
 	display: inline-block;
 	background: transparent url(img/ajax-progress.gif) center center;
