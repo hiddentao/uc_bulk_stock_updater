@@ -1,4 +1,4 @@
-// $Id: uc_bulk_stock_updater.js,v 1.3 2010/09/03 10:45:33 hiddentao Exp $
+// $Id: uc_bulk_stock_updater.js,v 1.4 2010/09/03 10:53:52 hiddentao Exp $
 
 var g_uc_bulk_stock_updater_all_rows = undefined
 
